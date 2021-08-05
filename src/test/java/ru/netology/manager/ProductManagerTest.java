@@ -19,6 +19,7 @@ class ProductManagerTest {
     private Product fourth = new Smartphone(4, "Iphone 11 128 Black", 55000, "Apple");
     private Product fifth = new Smartphone(5, "Galaxy S21 5G 256 Silver", 96000, "Samsung");
     private Product sixth = new Smartphone(6, "Mi 10T Pro 256", 44000, "Xiaomi");
+    private Product seventh = new Smartphone(7,"Iphone 11 64 White", 50000,"Apple");
 
 
     @BeforeEach
@@ -29,6 +30,7 @@ class ProductManagerTest {
         manager.add(fourth);
         manager.add(fifth);
         manager.add(sixth);
+        manager.add(seventh);
     }
 
     @Test
@@ -58,6 +60,49 @@ class ProductManagerTest {
         Product[] expected = new Product[]{sixth};
         assertArrayEquals(expected, actual);
     }
+
+    @Test
+    public void searchBookByNotExistingName() {
+        Product[] actual = manager.searchBy("Война и мир");
+        Product[] expected = new Product[]{};
+        assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void searchBookByNotExistingAuthor() {
+        Product[] actual = manager.searchBy("Лев Николаевич Толстой");
+        Product[] expected = new Product[]{};
+        assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void searchPhoneByNotExistingName() {
+        Product[] actual = manager.searchBy("Huawei P40 Pro");
+        Product[] expected = new Product[]{};
+        assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void searchPhoneByNotExistingManufacturer() {
+        Product[] actual = manager.searchBy("Nokia");
+        Product[] expected = new Product[]{};
+        assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void searchMultiplePhones() {
+        Product[] actual = manager.searchBy("Iph");
+        Product[] expected = new Product[]{fourth,seventh};
+        assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void searchMultipleBooks() {
+        Product[] actual = manager.searchBy("Тестирование");
+        Product[] expected = new Product[]{first,second,third};
+        assertArrayEquals(expected,actual);
+    }
+
 
 
 }
